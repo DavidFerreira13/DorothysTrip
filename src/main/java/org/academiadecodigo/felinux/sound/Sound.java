@@ -25,12 +25,15 @@ public class Sound {
     public void stop() {
         clip.stop();
     }
+
     public void close() {
         clip.close();
     }
+
     public void setLoop(int times) {
         clip.loop(times);
     }
+
     public void reOpen() {
         AudioInputStream inputStream = null;
         try {

@@ -1,4 +1,3 @@
-/*
 package org.academiadecodigo.felinux.sound;
 
 import org.academiadecodigo.felinux.View.extras.HighnessMeter;
@@ -12,22 +11,19 @@ public class Music {
 
     public void play() {
 
-
         if (HighnessMeter.meter <= 65) {
             sound = new Sound(SoundEffect.DEPRESSED.soundPath);
         }
-
         if (HighnessMeter.meter >= 65 && HighnessMeter.meter <= 195){
             sound = new Sound(SoundEffect.NORMAL.soundPath);
-
         }
-
         if (HighnessMeter.meter >= 195) {
             sound = new Sound(SoundEffect.HIGH.soundPath);
+        }else {
+            sound = new Sound(SoundEffect.NORMAL.soundPath);
         }
-
+        sound.play(true);
         }
-
     }
 
     enum SoundEffect {
@@ -44,4 +40,4 @@ public class Music {
 
 
 }
-*/
+
