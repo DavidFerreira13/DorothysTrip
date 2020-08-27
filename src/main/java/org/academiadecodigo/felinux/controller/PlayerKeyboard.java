@@ -1,9 +1,13 @@
 package org.academiadecodigo.felinux.controller;
 import org.academiadecodigo.felinux.GameObjects.model.Dorothy;
+import org.academiadecodigo.felinux.View.extras.HighnessMeter;
+import org.academiadecodigo.felinux.tools.DirectionType;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
+
+import static org.academiadecodigo.felinux.tools.DirectionType.*;
 /**
  * Keyboard Handler for Player Ingame
  */
@@ -11,7 +15,7 @@ public class PlayerKeyboard implements KeyboardHandler {
 
     private Keyboard keyboard;
     private Dorothy player;
-    private float moveSpeed = 3f;
+    private float moveSpeed = 4f;
 
 
     public PlayerKeyboard(Dorothy player){
@@ -63,9 +67,9 @@ public class PlayerKeyboard implements KeyboardHandler {
         interact.setKey(KeyboardEvent.KEY_E);
         interact.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
-        KeyboardEvent attack = new KeyboardEvent();
-        attack.setKey(KeyboardEvent.KEY_SPACE);
-        attack.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        KeyboardEvent mapSwap = new KeyboardEvent();
+        mapSwap.setKey(KeyboardEvent.KEY_SPACE);
+        mapSwap.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         keyboard.addEventListener(left);
         keyboard.addEventListener(right);
@@ -76,7 +80,7 @@ public class PlayerKeyboard implements KeyboardHandler {
         keyboard.addEventListener(upArrow);
         keyboard.addEventListener(downArrow);
         keyboard.addEventListener(interact);
-        keyboard.addEventListener(attack);
+        keyboard.addEventListener(mapSwap);
         /*
          * Key Released
          */
@@ -133,23 +137,36 @@ public class PlayerKeyboard implements KeyboardHandler {
         player.setDy(0);
 
         if(keyboardEvent.getKey() == KeyboardEvent.KEY_A||keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT){
-            player.setDx(player.getDx()-moveSpeed);;
+
+            player.setDx(player.getDx()-moveSpeed);
+            player.setDirection(LEFT);
+            player.setIdle(false);
         }
 
         if(keyboardEvent.getKey() == KeyboardEvent.KEY_D||keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT){
-            player.setDx(player.getDx()+moveSpeed);;
+            player.setDx(player.getDx()+moveSpeed);
+            player.setDirection(RIGHT);
+            player.setIdle(false);
         }
 
         if(keyboardEvent.getKey() == KeyboardEvent.KEY_W||keyboardEvent.getKey() == KeyboardEvent.KEY_UP){
-            player.setDy(player.getDy()-moveSpeed);;
+            player.setDy(player.getDy()-moveSpeed);
+            player.setDirection(BACK);
+            player.setIdle(false);
         }
 
         if(keyboardEvent.getKey() == KeyboardEvent.KEY_S||keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN){
-            player.setDy(player.getDy()+moveSpeed);;
+            player.setDy(player.getDy()+moveSpeed);
+            player.setDirection(FRONT);
+            player.setIdle(false);
         }
 
-        if(keyboardEvent.getKey() == KeyboardEvent.KEY_E){
-            player.interact();
+       // if(keyboardEvent.getKey() == KeyboardEvent.KEY_E){
+       //     player.interact();
+       // }
+
+        if(keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE){
+
         }
     }
     /**
@@ -161,25 +178,20 @@ public class PlayerKeyboard implements KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
         if((keyboardEvent.getKey() == KeyboardEvent.KEY_A)||(keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT)){
             player.setDx(0f);
+            player.setIdle(true);
         }
         if((keyboardEvent.getKey() == KeyboardEvent.KEY_D)||(keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT)){
             player.setDx(0f);
+            player.setIdle(true);
         }
         if((keyboardEvent.getKey() == KeyboardEvent.KEY_W)||(keyboardEvent.getKey() == KeyboardEvent.KEY_UP)){
             player.setDy(0f);
+            player.setIdle(true);
         }
         if((keyboardEvent.getKey() == KeyboardEvent.KEY_S)||(keyboardEvent.getKey() == KeyboardEvent.KEY_DOWN)){
             player.setDy(0f);
+            player.setIdle(true);
         }
-    }
-
-    //Might be needed for Spring
-
-    public Dorothy getPlayer() {
-        return player;
-    }
-    public void setPlayer(Dorothy player) {
-        this.player = player;
     }
 }
 

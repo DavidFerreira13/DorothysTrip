@@ -9,7 +9,6 @@ public abstract class AbstractModel extends GameObject {
     protected DirectionType direction;
     protected boolean talking;
 
-
     public AbstractModel() {
     }
 
@@ -19,5 +18,13 @@ public abstract class AbstractModel extends GameObject {
 
     public void setTalking(boolean talking) {
         this.talking = talking;
+    }
+
+    public DirectionType getDirection() {
+        return direction;
+    }
+
+    public void setDirection(DirectionType direction) {
+        this.direction = direction;
     }
 }
